@@ -106,7 +106,7 @@ flyway  -url=jdbc:mysql://nest-rds-db2.c09fzfbzs8yo.us-east-1.rds.amazonaws.com:
 
     -user=taofeek \
     
-    -password=rahmah2005 \
+    -password=xxxxxxxxxx \
     
     -locations=filesystem:sql \
 
@@ -128,7 +128,7 @@ sed -i 's|^DB_DATABASE=.*|DB_DATABASE=applicationdb|' /var/www/html/.env
 
 sed -i 's|^DB_USERNAME=.*|DB_USERNAME=taofeek|' /var/www/html/.env
 
-sed -i 's|^DB_PASSWORD=.*|DB_PASSWORD=rahmah2005|' /var/www/html/.env
+sed -i 's|^DB_PASSWORD=.*|DB_PASSWORD=xxxxxxxxxx|' /var/www/html/.env
 
 #Open the 'AppServiceProvider.php' file in the '/var/www/html/app/Providers' directory and add the following code in the public function boot():
 
