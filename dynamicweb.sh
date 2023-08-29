@@ -88,7 +88,7 @@ aws s3 cp s3://nest-sql-webfile/V1__nest.sql /home/ec2-user/flyway-9.21.2/sql
 #Migrate the provided SQL script into RDS database with Flyway
 flyway  -url=jdbc:mysql://nest-rds-db.c09fzfbzs8yo.us-east-1.rds.amazonaws.com:3306/applicationdb\
     -user=taofeek \
-    -password=rahmah2005 \
+    -password=xxxxxxxxxx \
     -locations=filesystem:sql \
     migrate
 
@@ -102,7 +102,7 @@ sed -i 's|^APP_URL=.*|APP_URL=https://www.zabithon.com|' /var/www/html/.env
 sed -i 's|^DB_HOST=.*|DB_HOST=nest-rds-db.c09fzfbzs8yo.us-east-1.rds.amazonaws.com|' /var/www/html/.env
 sed -i 's|^DB_DATABASE=.*|DB_DATABASE=applicationdb|' /var/www/html/.env
 sed -i 's|^DB_USERNAME=.*|DB_USERNAME=taofeek|' /var/www/html/.env
-sed -i 's|^DB_PASSWORD=.*|DB_PASSWORD=rahmah2005|' /var/www/html/.env
+sed -i 's|^DB_PASSWORD=.*|DB_PASSWORD=xxxxxxxxxx|' /var/www/html/.env
 
 #Open the 'AppServiceProvider.php' file in the '/var/www/html/app/Providers' directory and add the following code in the public function boot():
 
