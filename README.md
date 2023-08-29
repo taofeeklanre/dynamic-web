@@ -121,9 +121,13 @@ sudo chmod -R 777 storage/
 # Edit the '.env' file located in the html directory and add the followed values for your domain name and database credentials:
 
 sed -i 's|^APP_URL=.*|APP_URL=https://www.zabithon.com|' /var/www/html/.env
+
 sed -i 's|^DB_HOST=.*|DB_HOST=nest-rds-db.c09fzfbzs8yo.us-east-1.rds.amazonaws.com|' /var/www/html/.env
+
 sed -i 's|^DB_DATABASE=.*|DB_DATABASE=applicationdb|' /var/www/html/.env
+
 sed -i 's|^DB_USERNAME=.*|DB_USERNAME=taofeek|' /var/www/html/.env
+
 sed -i 's|^DB_PASSWORD=.*|DB_PASSWORD=rahmah2005|' /var/www/html/.env
 
 #Open the 'AppServiceProvider.php' file in the '/var/www/html/app/Providers' directory and add the following code in the public function boot():
