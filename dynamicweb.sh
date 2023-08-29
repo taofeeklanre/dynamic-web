@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 #Software Installation
@@ -19,12 +20,13 @@ sudo dnf install php8.1 -y
 sudo yum install php php-cli php-fpm php-mysqlnd php-bcmath php-ctype php-fileinfo php-json php-mbstring php-openssl php-pdo php-gd php-tokenizer php-xml -y
 
 # To install Mysql(Install the MySQL Community repository)
-sudo sudo wget https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm
-sudo ls -lrt
+
+sudo dnf update
+wget https://dev.mysql.com/get/mysql80-community-release-el9-3.noarch.rpm
 
 #Install the MySQL server:
-sudo dnf install mysql80-community-release-el9-1.noarch.rpm -y
-sudo dnf install mysql-community-server -y
+sudo dnf update
+sudo dnf install mysql-community-server
 
 #Start the MySQL server:
 sudo systemctl start mysql
@@ -84,7 +86,7 @@ mkdir sql
 aws s3 cp s3://nest-sql-webfile/V1__nest.sql /home/ec2-user/flyway-9.21.2/sql
 
 #Migrate the provided SQL script into RDS database with Flyway
-flyway  -url=jdbc:mysql://nest-rds-db2.c09fzfbzs8yo.us-east-1.rds.amazonaws.com:3306/applicationdb2\
+flyway  -url=jdbc:mysql://nest-rds-db.c09fzfbzs8yo.us-east-1.rds.amazonaws.com:3306/applicationdb\
     -user=taofeek \
     -password=rahmah2005 \
     -locations=filesystem:sql \
@@ -94,6 +96,21 @@ flyway  -url=jdbc:mysql://nest-rds-db2.c09fzfbzs8yo.us-east-1.rds.amazonaws.com:
 sudo chmod -R 777 /var/www/html/
 sudo chmod -R 777 storage/
 
+# Edit the '.env' file located in the html directory and add the followed values for your domain name and database credentials:
+
+sed -i 's|^APP_URL=.*|APP_URL=https://www.zabithon.com|' /var/www/html/.env
+sed -i 's|^DB_HOST=.*|DB_HOST=nest-rds-db.c09fzfbzs8yo.us-east-1.rds.amazonaws.com|' /var/www/html/.env
+sed -i 's|^DB_DATABASE=.*|DB_DATABASE=applicationdb|' /var/www/html/.env
+sed -i 's|^DB_USERNAME=.*|DB_USERNAME=taofeek|' /var/www/html/.env
+sed -i 's|^DB_PASSWORD=.*|DB_PASSWORD=rahmah2005|' /var/www/html/.env
+
+#Open the 'AppServiceProvider.php' file in the '/var/www/html/app/Providers' directory and add the following code in the public function boot():
+
+sed -i '/public function boot()/a \\ \\\ \\\ if (env("APP_ENV") === "production") {\\Illuminate\\Support\\Facades\\URL::forceScheme("https");\\}' /var/www/html/app/Providers/AppServiceProvider.php
+
+
 # Restart PHP-FPM and Apache for the changes to take effect
 sudo systemctl restart php-fpm
 sudo systemctl restart httpd
+
+
